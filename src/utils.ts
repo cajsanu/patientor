@@ -55,14 +55,14 @@ export const toNewPatient = (patientObject: unknown): NewPatient => {
   }
   if (
     "name" in patientObject &&
-    "dateOfBirht" in patientObject &&
+    "dateOfBirth" in patientObject &&
     "ssn" in patientObject &&
     "gender" in patientObject &&
     "occupation" in patientObject
   ) {
     const newPatient: NewPatient = {
       name: parseName(patientObject.name),
-      dateOfBirth: parseDate(patientObject.dateOfBirht),
+      dateOfBirth: parseDate(patientObject.dateOfBirth),
       ssn: parseSsn(patientObject.ssn),
       gender: parseGender(patientObject.gender),
       occupation: parseOccupation(patientObject.occupation)
