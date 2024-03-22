@@ -11,9 +11,10 @@ export interface PatientType {
   ssn: string;
   gender: Gender | string;
   occupation: string;
+  entries: string[]
 }
 
-export type PatientWithoutSsn = Omit<PatientType, "ssn">;
+export type NonSensitivePatient = Omit<PatientType, "ssn" | "entries">;
 
 export type NewPatient = Omit<PatientType, "id">;
 

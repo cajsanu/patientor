@@ -10,7 +10,6 @@ patientRouter.get("/", (_req, res) => {
 
 patientRouter.get("/:id", (req, res) => {
   const patient = patientService.getPatientById(req.params.id);
-
   if (patient) {
     res.send(patient);
   } else {
