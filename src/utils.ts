@@ -49,13 +49,6 @@ const parseOccupation = (occupation: unknown): string => {
     return occupation
 }
 
-const parseEntries = (entries: unknown): string => {
-    if (!isString(entries)) {
-        throw new Error("Incorrect or missing entries");
-    }
-    return entries
-}
-
 export const toNewPatient = (patientObject: unknown): NewPatient => {
   if (!patientObject || typeof patientObject !== "object") {
     throw new Error("Incorrect or missing data");
@@ -74,7 +67,6 @@ export const toNewPatient = (patientObject: unknown): NewPatient => {
       ssn: parseSsn(patientObject.ssn),
       gender: parseGender(patientObject.gender),
       occupation: parseOccupation(patientObject.occupation),
-      entries: [parseEntries(patientObject.entries)]
     };
     return newPatient;
   }
