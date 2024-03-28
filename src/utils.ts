@@ -85,7 +85,7 @@ const isNumber = (digit: unknown): digit is number => {
 };
 
 const parseRating = (rating: unknown): HealthCheckRating => {
-  if (!isNumber(rating)) {
+  if (!isNumber(rating) || rating > 3) {
     throw new Error("Incorrect rating input");
   }
   return rating;
@@ -102,20 +102,30 @@ const parseDischarge = (discharge: unknown): Discharge => {
     return { date, criteria };
   };
 
+const parseCodes = (codes: unknown): string[] => {
+  if (!codes || !Array.isArray(codes) || codes.find(code => typeof code !== "string")) {
+    throw new Error("Incorrect discharge input");
+  } 
+  return codes
+}
+
 export const toNewEntry = (entryObject: unknown): EntryWithoutId => {
   if (!entryObject || typeof entryObject !== "object") {
     throw new Error("Incorrect or missing data");
   }
+  console.log(entryObject)
   if (
     "description" in entryObject &&
     "date" in entryObject &&
     "specialist" in entryObject &&
-    "type" in entryObject
+    "type" in entryObject &&
+    "diagnosisCodes" in entryObject
   ) {
     const base = {
       description: parseString(entryObject.description),
       date: parseDate(entryObject.date),
       specialist: parseString(entryObject.specialist),
+      diagnosisCodes: parseCodes(entryObject.diagnosisCodes)
     };
     switch (entryObject.type) {
       case "HealthCheck":
